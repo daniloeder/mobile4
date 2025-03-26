@@ -67,9 +67,6 @@ const ChevronLeft: React.FC<IconProps> = ({ style }) => (
 const MenuDashboard: React.FC<IconProps> = ({ style }) => (
   <IconBase style={style}>
     <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C6B06C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <Rect x="3" y="3" width="7" height="7" />
-      <Rect x="14" y="3" width="7" height="7" />
-      <Rect x="14" y="14" width="7" height="7" />
       <Rect x="3" y="14" width="7" height="7" />
     </Svg>
   </IconBase>

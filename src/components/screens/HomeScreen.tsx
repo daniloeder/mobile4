@@ -66,22 +66,19 @@ const HomeScreen = () => {
       id: '4281', 
       name: 'Degen Ape', 
       price: '12.5', 
-      //image: require('../../assets/collectibles/degen-ape.jpg') 
-      image: require('../../../assets/collectibles/icon.png')
+      image: require('../../../assets/collectibles/degen-ape.jpg')
     },
     { 
       id: '182', 
       name: 'CryptoMutt', 
       price: '8.2', 
-      //image: require('../../assets/collectibles/crypto-mutt.jpg') 
-      image: require('../../../assets/collectibles/icon.png')
+      image: require('../../../assets/collectibles/crypto-mutt.jpg')
     },
     { 
       id: '293', 
       name: 'Mad Lads', 
       price: '19.5', 
-      //image: require('../../assets/collectibles/mad-lads.jpg') 
-      image: require('../../../assets/collectibles/icon.png')
+      image: require('../../../assets/collectibles/mad-lads.jpg') 
     },
   ];
 
@@ -91,32 +88,28 @@ const HomeScreen = () => {
       name: 'Claynosaurz', 
       price: '5.3', 
       change: 12.4, 
-      //image: require('../../assets/collectibles/claynosaurz.jpg') 
-      image: require('../../../assets/collectibles/icon.png')
+      image: require('../../../assets/collectibles/claynosaurz.jpg')
     },
     { 
       id: '2', 
       name: 'DeGods', 
       price: '30.7', 
       change: 8.7, 
-      //image: require('../../assets/collectibles/degods.jpg') 
-      image: require('../../../assets/collectibles/icon.png')
+      image: require('../../../assets/collectibles/degods.jpg')
     },
     { 
       id: '3', 
       name: 'Okay Bears', 
       price: '48.2', 
       change: 5.2, 
-      //image: require('../../assets/collectibles/okay-bears.jpg') 
-      image: require('../../../assets/collectibles/icon.png')
+      image: require('../../../assets/collectibles/okay-bears.jpg')
     },
     { 
       id: '4', 
       name: 'Famous Fox', 
       price: '10.5', 
       change: 3.8, 
-      //image: require('../../assets/collectibles/famous-fox.jpg') 
-      image: require('../../../assets/collectibles/icon.png')
+      image: require('../../../assets/collectibles/famous-fox.jpg')
     },
   ];
 
@@ -126,32 +119,28 @@ const HomeScreen = () => {
       name: 'Pixel Peeps', 
       price: '2.8', 
       time: '5m ago', 
-      //image: require('../../assets/collectibles/pixel-peeps.jpg') 
-      image: require('../../../assets/collectibles/icon.png')
+      image: require('../../../assets/collectibles/pixel-peeps.jpg')
     },
     { 
       id: '2184', 
       name: 'Solana', 
       price: '4.1', 
       time: '12m ago', 
-      //image: require('../../assets/collectibles/solana.jpg') 
-      image: require('../../../assets/collectibles/icon.png')
+      image: require('../../../assets/collectibles/solana.jpg')
     },
     { 
       id: '9281', 
       name: 'Neural Nets', 
       price: '1.5', 
       time: '34m ago', 
-      //image: require('../../assets/collectibles/neural-nets.jpg') 
-      image: require('../../../assets/collectibles/icon.png')
+      image: require('../../../assets/collectibles/neural-nets.jpg')
     },
     { 
       id: '482', 
       name: 'Pixel Pandas', 
       price: '3.2', 
       time: '1h ago', 
-      //image: require('../../assets/collectibles/pixel-pandas.jpg') 
-      image: require('../../../assets/collectibles/icon.png')
+      image: require('../../../assets/collectibles/pixel-pandas.jpg')
     },
   ];
 
@@ -161,32 +150,28 @@ const HomeScreen = () => {
       name: 'Space Runners', 
       price: '14.3', 
       change: 62.8, 
-      //image: require('../../assets/collectibles/space-runners.jpg') 
-      image: require('../../../assets/collectibles/icon.png')
+      image: require('../../../assets/collectibles/space-runners.jpg')
     },
     { 
       id: '2', 
       name: 'Cosmic Creatures', 
       price: '8.7', 
       change: 41.2, 
-      //image: require('../../assets/collectibles/cosmic-creatures.jpg') 
-      image: require('../../../assets/collectibles/icon.png')
+      image: require('../../../assets/collectibles/cosmic-creatures.jpg')
     },
     { 
       id: '3', 
       name: 'Meta Monsters', 
       price: '6.9', 
       change: 37.5, 
-      //image: require('../../assets/collectibles/meta-monsters.jpg') 
-      image: require('../../../assets/collectibles/icon.png')
+      image: require('../../../assets/collectibles/meta-monsters.jpg')
     },
     { 
       id: '4', 
       name: 'Digi Dragons', 
       price: '11.2', 
       change: 29.3, 
-      //image: require('../../assets/collectibles/digi-dragons.jpg') 
-      image: require('../../../assets/collectibles/icon.png')
+      image: require('../../../assets/collectibles/digi-dragons.jpg')
     },
   ];
 
@@ -195,8 +180,7 @@ const HomeScreen = () => {
       <View style={styles.header}>
         <TouchableOpacity>
           <Image 
-            //source={require('../../assets/profile.jpg')} 
-            source={require('../../../assets/collectibles/icon.png')} 
+            source={require('../../../assets/profile.jpg')}
             style={styles.profileImage} 
           />
         </TouchableOpacity>

@@ -12,8 +12,7 @@ const tokenData = [
         symbol: 'BTC',
         price: '$62,134.21',
         change: -1.32,
-        //image: require('../../assets/icons/bitcoin.png')
-        image: require('../../../assets/collectibles/icon.png')
+        image: require('../../../assets/icons/bitcoin.png')
     },
     {
         id: '2',
@@ -21,8 +20,7 @@ const tokenData = [
         symbol: 'ETH',
         price: '$3,450.78',
         change: 2.54,
-        //image: require('../../assets/icons/ethereum.png')
-        image: require('../../../assets/collectibles/icon.png')
+        image: require('../../../assets/icons/ethereum.png')
     },
     {
         id: '3',
@@ -30,8 +28,7 @@ const tokenData = [
         symbol: 'SOL',
         price: '$3,450.78',
         change: 2.54,
-        //image: require('../../assets/icons/solana.png')
-        image: require('../../../assets/collectibles/icon.png')
+        image: require('../../../assets/icons/solana.png')
     },
     {
         id: '4',
@@ -39,8 +36,7 @@ const tokenData = [
         symbol: 'UNI',
         price: '$3,450.78',
         change: 2.54,
-        //image: require('../../assets/icons/uniswap.png')
-        image: require('../../../assets/collectibles/icon.png')
+        image: require('../../../assets/icons/uniswap.png')
     },
     {
         id: '5',
@@ -48,8 +44,7 @@ const tokenData = [
         symbol: 'AXS',
         price: '$62,134.21',
         change: -1.32,
-        //image: require('../../assets/icons/axie.png')
-        image: require('../../../assets/collectibles/icon.png')
+        image: require('../../../assets/icons/axie.png')
     },
     {
         id: '6',
@@ -57,8 +52,7 @@ const tokenData = [
         symbol: 'ARB',
         price: '$62,134.21',
         change: -1.32,
-        //image: require('../../assets/icons/arbitrum.png')
-        image: require('../../../assets/collectibles/icon.png')
+        image: require('../../../assets/icons/arbitrum.png')
     },
     {
         id: '7',
@@ -66,8 +60,7 @@ const tokenData = [
         symbol: 'AAVE',
         price: '$3,450.78',
         change: 2.54,
-        //image: require('../../assets/icons/aave.png')
-        image: require('../../../assets/collectibles/icon.png')
+        image: require('../../../assets/icons/aave.png')
     }
 ];
 
@@ -105,8 +98,7 @@ const TokenExplorerScreen = () => {
                             <Icon name="menu" size={24} color="white" />
                         </TouchableOpacity>
                         <Image
-                            //source={require('../../../assets/logo.png')}
-                            source={require('../../../assets/collectibles/icon.png')}
+                            source={require('../../../assets/logo.jpg')}
                             style={styles.logoImage}
                         />
                     </View>

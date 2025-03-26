@@ -15,8 +15,7 @@ const SplashScreen = () => {
     <View style={styles.container}>
       <View style={styles.contentContainer}>
         <Image 
-          //source={require('../../assets/Logo.gif')}
-          source={require('../../../assets/collectibles/icon.png')}
+          source={require('../../../assets/logo.jpg')}
           style={styles.logo} 
         />
         
