@@ -38,19 +38,6 @@ const WalletSetup = () => {
             onPress={() => setShowAddress(true)}
           >
             <View style={styles.optionIconContainer}>
-              <Icon name="import" size={24} color={COLORS.gold} />
-            </View>
-            <View style={styles.optionTextContainer}>
-              <Text style={styles.optionTitle}>Import Wallet</Text>
-              <Text style={styles.optionDescription}>Using seed phrase</Text>
-            </View>
-          </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={styles.optionCard}
-            onPress={() => setShowAddress(true)}
-          >
-            <View style={styles.optionIconContainer}>
               <Icon name="link" size={24} color={COLORS.gold} />
             </View>
             <View style={styles.optionTextContainer}>
