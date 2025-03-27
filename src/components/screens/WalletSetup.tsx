@@ -1,28 +1,48 @@
+
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import NavHeader from '../ui/NavHeader';
 import CustomButton from '../ui/CustomButton';
-import { COLORS } from '../../styles/theme';
+import WalletOption from '../ui/WalletOption';
 import Icon from '../ui/Icon';
+import { COLORS, BORDER_RADIUS, FONT_SIZE } from '../../styles/theme';
 
 const WalletSetup = () => {
   const [showAddress, setShowAddress] = useState(false);
+  const [walletType, setWalletType] = useState(null);
+  const [copied, setCopied] = useState(false);
+  
   const navigation = useNavigation();
-
+  
+  const mockWalletAddress = "Fx195pCexVzpWikyU6nPPqw8j3xQbacif6";
+  
   const handleBack = () => {
     navigation.goBack();
   };
-
-  const handleContinue = () => {
-    navigation.navigate('Home');
+  
+  const handleComplete = () => {
+    navigation.navigate('Main' as never);
   };
-
+  
+  const handleCopyAddress = () => {
+    // In a real app, you would use Clipboard from react-native or expo
+    setCopied(true);
+    
+    // Reset copied status after 2 seconds
+    setTimeout(() => setCopied(false), 2000);
+  };
+  
+  const selectWalletOption = (type) => {
+    setWalletType(type);
+    setShowAddress(true);
+  };
+  
   return (
     <View style={styles.container}>
       <NavHeader title="Wallet Setup" onBack={handleBack} />
       
-      <View style={styles.content}>
+      <ScrollView style={styles.scrollView} contentContainerStyle={styles.contentContainer}>
         {/* Wallet icon */}
         <View style={styles.walletIconContainer}>
           <Icon name="wallet" size={50} color={COLORS.gold} />
@@ -33,18 +53,13 @@ const WalletSetup = () => {
         </Text>
         
         <View style={styles.optionsContainer}>
-          <TouchableOpacity 
-            style={styles.optionCard}
-            onPress={() => setShowAddress(true)}
-          >
-            <View style={styles.optionIconContainer}>
-              <Icon name="link" size={24} color={COLORS.gold} />
-            </View>
-            <View style={styles.optionTextContainer}>
-              <Text style={styles.optionTitle}>Connect Phantom/Solflare</Text>
-              <Text style={styles.optionDescription}>External wallet connection</Text>
-            </View>
-          </TouchableOpacity>
+          <WalletOption 
+            icon={<Icon name="link" size={24} color={COLORS.gold} />}
+            title="Connect Phantom/Solflare"
+            description="External wallet connection"
+            onPress={() => selectWalletOption('connect')}
+            active={walletType === 'connect'}
+          />
         </View>
         
         {showAddress && (
@@ -52,20 +67,25 @@ const WalletSetup = () => {
             <View style={styles.addressCard}>
               <View style={styles.addressHeader}>
                 <Text style={styles.addressLabel}>Wallet Address</Text>
-                <TouchableOpacity>
-                  <Icon name="copy" size={20} color={COLORS.gold} />
+                <TouchableOpacity onPress={handleCopyAddress}>
+                  {copied ? (
+                    <Icon name="check-circle" size={20} color={COLORS.gold} />
+                  ) : (
+                    <Icon name="copy" size={20} color={COLORS.gold} />
+                  )}
                 </TouchableOpacity>
               </View>
-              <Text style={styles.addressValue}>Fx195p...if6</Text>
+              <Text style={styles.addressValue}>{mockWalletAddress}</Text>
             </View>
-            <CustomButton 
-              title="Continue" 
-              onPress={handleContinue}
-              style={styles.continueButton} 
+            
+            <CustomButton
+              title="Continue"
+              onPress={handleComplete}
+              style={styles.continueButton}
             />
           </View>
         )}
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -73,12 +93,13 @@ const WalletSetup = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: 'black',
   },
-  content: {
+  scrollView: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 32,
+  },
+  contentContainer: {
+    padding: 16,
     alignItems: 'center',
   },
   walletIconContainer: {
@@ -89,6 +110,7 @@ const styles = StyleSheet.create({
     borderColor: '#333',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 40,
     marginBottom: 40,
   },
   instructionText: {
@@ -102,37 +124,6 @@ const styles = StyleSheet.create({
   optionsContainer: {
     width: '100%',
     marginBottom: 24,
-    gap: 16,
-  },
-  optionCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 16,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: '#333',
-    backgroundColor: 'rgba(255,255,255,0.05)',
-  },
-  optionIconContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: '#463F1F',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 16,
-  },
-  optionTextContainer: {
-    flex: 1,
-  },
-  optionTitle: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: '600',
-  },
-  optionDescription: {
-    color: '#999',
-    fontSize: 14,
   },
   addressContainer: {
     width: '100%',
@@ -141,7 +132,7 @@ const styles = StyleSheet.create({
   },
   addressCard: {
     backgroundColor: '#17171F',
-    borderRadius: 12,
+    borderRadius: BORDER_RADIUS.lg,
     padding: 16,
     marginBottom: 8,
   },

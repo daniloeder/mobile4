@@ -1,33 +1,37 @@
+
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import CustomButton from '../ui/CustomButton';
-import { COLORS } from '../../styles/theme';
+import { COLORS, FONT_SIZE } from '../../styles/theme';
 
 const SplashScreen = () => {
   const navigation = useNavigation();
-
+  
   const handleGetStarted = () => {
-    navigation.navigate('WalletSetup');
+    navigation.navigate('WalletSetup' as never);
   };
-
+  
   return (
     <View style={styles.container}>
-      <View style={styles.contentContainer}>
-        <Image 
-          source={require('../../../assets/logo.jpg')}
-          style={styles.logo} 
-        />
+      <View style={styles.content}>
+        <View style={styles.logoContainer}>
+          <Image 
+            source={require('../../../assets/logo.jpg')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+        </View>
         
         <Text style={styles.title}>StreetX</Text>
         <Text style={styles.subtitle}>The Culture Exchange</Text>
       </View>
       
-      <CustomButton 
-        title="Connect Wallet" 
-        onPress={handleGetStarted} 
-        style={styles.connectButton}
-        textStyle={styles.connectButtonText}
+      <CustomButton
+        title="Connect Wallet"
+        onPress={handleGetStarted}
+        style={styles.button}
+        textStyle={styles.buttonText}
       />
     </View>
   );
@@ -36,25 +40,28 @@ const SplashScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: 'black',
     padding: 24,
+    justifyContent: 'space-between',
   },
-  contentContainer: {
+  content: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  logo: {
+  logoContainer: {
     width: 160,
     height: 160,
     marginBottom: 40,
   },
+  logo: {
+    width: '100%',
+    height: '100%',
+  },
   title: {
     color: COLORS.gold,
-    fontSize: 60,
-    fontWeight: '700',
+    fontSize: 48,
+    fontWeight: 'bold',
     marginBottom: 8,
   },
   subtitle: {
@@ -63,15 +70,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 120,
   },
-  connectButton: {
-    width: '100%',
-    backgroundColor: COLORS.gold,
+  button: {
+    paddingVertical: 16,
     marginBottom: 32,
-    height: 60,
   },
-  connectButtonText: {
-    fontSize: 18,
-    fontWeight: '600',
+  buttonText: {
+    fontSize: FONT_SIZE.lg,
   },
 });
 

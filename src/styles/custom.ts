@@ -1,91 +1,105 @@
-// Custom styles for React Native application
+
+// Custom styles for the application
 
 // Colors
 export const COLORS = {
-  background: '#000000',
-  cardBg: '#1A1A1A',
-  darkCard: '#17171F',
-  darkSecondary: '#1E1E2D',
+  black: '#000000',
+  darkGray: '#121212',
+  darkCard: '#1E1E2D',
+  darkInput: '#2A2A3A',
+  darkBorder: '#333333',
   gold: '#C6B06C',
   goldTransparent: 'rgba(198, 176, 108, 0.1)',
-  text: '#FFFFFF',
-  textSecondary: '#999999',
-  success: '#4CAF50',
-  danger: '#F44336',
-  chartBg: '#232336',
-  border: 'rgba(255, 255, 255, 0.1)',
-};
-
-// Spacing
-export const SPACING = {
-  xs: 4,
-  sm: 8,
-  md: 16,
-  lg: 24,
-  xl: 32,
-  xxl: 48,
-};
-
-// Border Radius
-export const BORDER_RADIUS = {
-  sm: 8,
-  md: 12,
-  lg: 16,
-  xl: 24,
-  circle: 999,
-};
-
-// Effects
-export const EFFECTS = {
-  shadowLight: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  shadowMedium: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 5.46,
-    elevation: 9,
-  },
+  white: '#FFFFFF',
+  lightGray: '#999999',
+  green: '#4CAF50',
+  red: '#F44336',
+  transparentWhite: 'rgba(255, 255, 255, 0.1)',
+  transparentBlack: 'rgba(0, 0, 0, 0.5)',
 };
 
 // Typography
 export const TYPOGRAPHY = {
-  titleLarge: {
+  h1: {
     fontSize: 32,
-    fontWeight: 'bold',
-    color: COLORS.text,
+    fontWeight: '700',
+    color: COLORS.white,
   },
-  title: {
+  h2: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: COLORS.text,
+    fontWeight: '700',
+    color: COLORS.white,
+  },
+  h3: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: COLORS.white,
   },
   subtitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: COLORS.text,
+    fontSize: 16,
+    fontWeight: '400',
+    color: COLORS.lightGray,
   },
   body: {
     fontSize: 16,
-    color: COLORS.text,
+    fontWeight: '400',
+    color: COLORS.white,
   },
-  caption: {
+  label: {
     fontSize: 14,
-    color: COLORS.textSecondary,
+    fontWeight: '400',
+    color: COLORS.lightGray,
   },
   small: {
     fontSize: 12,
-    color: COLORS.textSecondary,
+    fontWeight: '400',
+    color: COLORS.lightGray,
   },
+  gold: {
+    color: COLORS.gold,
+  },
+};
+
+// Shadows and effects
+export const EFFECTS = {
+  cardShadow: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  buttonShadow: {
+    shadowColor: COLORS.gold,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 3,
+  },
+};
+
+// Layout spacing
+export const SPACING = {
+  xs: 4,
+  s: 8,
+  m: 16,
+  l: 24,
+  xl: 32,
+  xxl: 48,
+};
+
+// Border radius
+export const BORDER_RADIUS = {
+  s: 8,
+  m: 16,
+  l: 24,
+  circle: 9999,
+};
+
+export default {
+  COLORS,
+  TYPOGRAPHY,
+  EFFECTS,
+  SPACING,
+  BORDER_RADIUS,
 };

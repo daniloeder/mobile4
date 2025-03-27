@@ -1,56 +1,53 @@
+
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import NavHeader from '../ui/NavHeader';
 import CustomButton from '../ui/CustomButton';
-import { COLORS } from '../../styles/theme';
 import Icon from '../ui/Icon';
+import { COLORS } from '../../styles/theme';
 
 const SuccessScreen = () => {
   const navigation = useNavigation();
-
+  
   const handleBack = () => {
     navigation.goBack();
   };
-
-  const handleViewCollectible = () => {
-    navigation.navigate('CollectibleDetail');
+  
+  const handleContinue = () => {
+    navigation.navigate('CollectibleDetail' as never);
   };
-
-  const handleShareToSocial = () => {
-    // Implement share functionality
-  };
-
+  
   return (
     <View style={styles.container}>
       <NavHeader title="Success" onBack={handleBack} />
       
       <View style={styles.content}>
-        <View style={styles.checkIconContainer}>
-          <Icon name="check" size={64} color="#f0e6b2" />
+        <View style={styles.successIcon}>
+          <Icon name="check" size={50} color="#f0e6b2" />
         </View>
         
-        <Text style={styles.titleText}>
+        <Text style={styles.title}>
           Your Collectible has Launched!
         </Text>
         
-        <Text style={styles.subtitleText}>
+        <Text style={styles.subtitle}>
           Ashiqur ($ASHIQ) is now live on the StreetX marketplace
         </Text>
         
         <View style={styles.buttonContainer}>
-          <CustomButton 
+          <CustomButton
             title="View Collectible"
-            onPress={handleViewCollectible}
+            onPress={handleContinue}
             style={styles.viewButton}
           />
           
-          <CustomButton 
+          <CustomButton
             title="Share to Social"
-            onPress={handleShareToSocial}
-            icon="share"
+            icon="share-2"
+            onPress={() => {}}
+            primary={false}
             style={styles.shareButton}
-            textStyle={styles.shareButtonText}
           />
         </View>
       </View>
@@ -61,15 +58,15 @@ const SuccessScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: 'black',
   },
   content: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 24,
+    padding: 24,
   },
-  checkIconContainer: {
+  successIcon: {
     width: 120,
     height: 120,
     borderRadius: 60,
@@ -78,35 +75,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 40,
   },
-  titleText: {
+  title: {
     color: COLORS.gold,
-    fontSize: 32,
-    fontWeight: '700',
+    fontSize: 28,
+    fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 16,
   },
-  subtitleText: {
+  subtitle: {
     color: '#999',
-    fontSize: 16,
     textAlign: 'center',
-    marginBottom: 64,
+    marginBottom: 60,
+    fontSize: 16,
   },
   buttonContainer: {
     width: '100%',
     gap: 16,
   },
   viewButton: {
-    backgroundColor: COLORS.gold,
-    height: 56,
+    paddingVertical: 16,
   },
   shareButton: {
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: COLORS.gold,
-    height: 56,
-  },
-  shareButtonText: {
-    color: COLORS.gold,
+    paddingVertical: 16,
   },
 });
 

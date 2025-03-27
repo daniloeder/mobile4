@@ -1,13 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { LineChart } from 'react-native-chart-kit';
 import NavHeader from '../ui/NavHeader';
 import CustomButton from '../ui/CustomButton';
-import { COLORS } from '../../styles/theme';
 import Icon from '../ui/Icon';
-
-const screenWidth = Dimensions.get('window').width - 32;
+import { COLORS, FONT_SIZE } from '../../styles/theme';
 
 const CollectibleDetailScreen = () => {
     const navigation = useNavigation();
@@ -16,8 +14,12 @@ const CollectibleDetailScreen = () => {
         navigation.goBack();
     };
 
-    const handleShareGain = () => {
-        navigation.navigate('FlexShare');
+    const handleShare = () => {
+        navigation.navigate('FlexShare' as never);
+    };
+
+    const handleBuy = () => {
+        navigation.navigate('BuyToken' as never);
     };
 
     const chartData = {
@@ -35,30 +37,30 @@ const CollectibleDetailScreen = () => {
         <View style={styles.container}>
             <NavHeader title="Collectible" onBack={handleBack} />
 
-            <View style={styles.content}>
-                <View style={styles.imageContainer}>
-                    <Icon name="image" size={48} color="#777" />
-                    <Text style={styles.imageText}>Collectible Asset</Text>
-                    <Text style={styles.imageDescription}>
+            <ScrollView style={styles.scrollView} contentContainerStyle={styles.contentContainer}>
+                <View style={styles.assetContainer}>
+                    <Icon name="image" size={48} color="#999" />
+                    <Text style={styles.assetText}>Collectible Asset</Text>
+                    <Text style={styles.assetDescription}>
                         This digital collectible represents ownership of a unique token on the StreetX platform
                     </Text>
                 </View>
 
                 <View style={styles.infoCard}>
-                    <View style={styles.infoHeader}>
+                    <View style={styles.titleContainer}>
                         <View>
-                            <Text style={styles.collectibleName}>Elon Musk</Text>
-                            <Text style={styles.collectibleSymbol}>$ELON</Text>
+                            <Text style={styles.title}>Elon Musk</Text>
+                            <Text style={styles.symbol}>$ELON</Text>
                         </View>
                         <View style={styles.priceContainer}>
-                            <Text style={styles.collectiblePrice}>$42.69</Text>
-                            <Text style={styles.collectibleChange}>↗ 5.32%</Text>
+                            <Text style={styles.price}>$42.69</Text>
+                            <Text style={styles.change}>↑ 5.32%</Text>
                         </View>
                     </View>
                 </View>
 
                 <View style={styles.statsCard}>
-                    <View style={styles.statsRow}>
+                    <View style={styles.statsGrid}>
                         <View style={styles.statItem}>
                             <Text style={styles.statLabel}>Market Cap</Text>
                             <Text style={styles.statValue}>$4.3M</Text>
@@ -67,8 +69,6 @@ const CollectibleDetailScreen = () => {
                             <Text style={styles.statLabel}>Liquidity</Text>
                             <Text style={styles.statValue}>$850.0K</Text>
                         </View>
-                    </View>
-                    <View style={styles.statsRow}>
                         <View style={styles.statItem}>
                             <Text style={styles.statLabel}>Volume</Text>
                             <Text style={styles.statValue}>$320.0K</Text>
@@ -82,25 +82,25 @@ const CollectibleDetailScreen = () => {
 
                 <View style={styles.chartCard}>
                     <View style={styles.chartHeader}>
-                        <View style={styles.chartTitle}>
-                            <Icon name="trending-up" size={20} color={COLORS.gold} />
-                            <Text style={styles.chartTitleText}>Price Chart</Text>
+                        <View style={styles.chartTitleContainer}>
+                            <Icon name="activity" size={20} color={COLORS.gold} />
+                            <Text style={styles.chartTitle}>Price Chart</Text>
                         </View>
-                        <View style={styles.timeButtons}>
-                            <TouchableOpacity style={[styles.timeButton, styles.activeTimeButton]}>
-                                <Text style={styles.timeButtonText}>1H</Text>
+
+                        <View style={styles.timeframeContainer}>
+                            <TouchableOpacity style={styles.timeframeButton}>
+                                <Text style={styles.timeframeText}>1H</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.timeButton}>
-                                <Text style={styles.timeButtonText}>24H</Text>
+                            <TouchableOpacity style={[styles.timeframeButton, styles.activeTimeframe]}>
+                                <Text style={styles.timeframeText}>24H</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.timeButton}>
-                                <Text style={styles.timeButtonText}>7D</Text>
+                            <TouchableOpacity style={styles.timeframeButton}>
+                                <Text style={styles.timeframeText}>7D</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={styles.chart}>
-                        {/* Chart would be rendered here */}
-                        <View style={styles.chartLine} />
+
+                    <View style={styles.chartPlaceholder}>
                         <LineChart
                             data={chartData}
                             width={320}
@@ -126,35 +126,34 @@ const CollectibleDetailScreen = () => {
                                 borderRadius: 16
                             }}
                         />
-
                     </View>
                 </View>
 
-                <View style={styles.actionsCard}>
+                <View style={styles.actionCard}>
                     <View style={styles.actionButtons}>
                         <CustomButton
                             title="Buy"
-                            onPress={() => { }}
+                            onPress={handleBuy}
                             style={styles.buyButton}
                         />
                         <CustomButton
                             title="Sell"
                             onPress={() => { }}
+                            primary={false}
                             style={styles.sellButton}
-                            textStyle={styles.sellButtonText}
                         />
                     </View>
                 </View>
 
-                <View style={styles.shareContainer}>
+                <View style={styles.actionCard}>
                     <CustomButton
                         title="Share Your Gain"
-                        onPress={handleShareGain}
-                        style={styles.shareButton}
-                        textStyle={styles.shareButtonText}
+                        onPress={handleShare}
+                        primary={false}
+                        style={styles.shareYourGainButton}
                     />
                 </View>
-            </View>
+            </ScrollView>
         </View>
     );
 };
@@ -162,88 +161,87 @@ const CollectibleDetailScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#000',
+        backgroundColor: 'black',
     },
-    content: {
+    scrollView: {
         flex: 1,
+    },
+    contentContainer: {
         padding: 16,
         gap: 16,
     },
-    imageContainer: {
-        backgroundColor: '#333',
+    assetContainer: {
+        height: 240,
+        backgroundColor: 'rgba(255, 255, 255, 0.05)',
         borderRadius: 12,
-        padding: 16,
         alignItems: 'center',
         justifyContent: 'center',
-        height: 200,
+        padding: 16,
     },
-    imageText: {
-        color: 'white',
-        fontSize: 18,
-        fontWeight: '600',
-        marginTop: 16,
-    },
-    imageDescription: {
+    assetText: {
         color: '#999',
+        marginTop: 12,
+        fontSize: 16,
+    },
+    assetDescription: {
+        color: '#777',
         textAlign: 'center',
         marginTop: 8,
-        paddingHorizontal: 24,
+        maxWidth: 280,
     },
     infoCard: {
-        backgroundColor: '#777',
+        backgroundColor: 'rgba(128, 128, 128, 0.2)',
         borderRadius: 12,
         padding: 16,
     },
-    infoHeader: {
+    titleContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    collectibleName: {
+    title: {
         color: 'white',
         fontSize: 24,
-        fontWeight: '700',
+        fontWeight: 'bold',
     },
-    collectibleSymbol: {
-        color: '#ddd',
-        fontSize: 16,
+    symbol: {
+        color: '#999',
     },
     priceContainer: {
         alignItems: 'flex-end',
     },
-    collectiblePrice: {
+    price: {
         color: 'white',
-        fontSize: 20,
-        fontWeight: '700',
+        fontSize: 24,
+        fontWeight: 'bold',
     },
-    collectibleChange: {
+    change: {
         color: '#4CAF50',
-        fontSize: 16,
     },
     statsCard: {
-        backgroundColor: '#777',
+        backgroundColor: 'rgba(128, 128, 128, 0.2)',
         borderRadius: 12,
         padding: 16,
     },
-    statsRow: {
+    statsGrid: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 8,
+        flexWrap: 'wrap',
     },
     statItem: {
-        width: '48%',
+        width: '50%',
+        marginBottom: 16,
     },
     statLabel: {
-        color: '#ddd',
+        color: '#999',
         fontSize: 14,
+        marginBottom: 4,
     },
     statValue: {
         color: 'white',
-        fontSize: 16,
-        fontWeight: '600',
+        fontWeight: '500',
     },
     chartCard: {
-        backgroundColor: '#777',
+        backgroundColor: 'rgba(128, 128, 128, 0.2)',
         borderRadius: 12,
         padding: 16,
     },
@@ -252,77 +250,58 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: 16,
-        zIndex: 2
     },
-    chartTitle: {
+    chartTitleContainer: {
         flexDirection: 'row',
         alignItems: 'center',
     },
-    chartTitleText: {
+    chartTitle: {
         color: COLORS.gold,
-        fontSize: 18,
-        fontWeight: '600',
+        fontWeight: '500',
         marginLeft: 8,
     },
-    timeButtons: {
+    timeframeContainer: {
         flexDirection: 'row',
+        gap: 4,
+    },
+    timeframeButton: {
+        backgroundColor: 'black',
+        paddingVertical: 4,
+        paddingHorizontal: 8,
+        borderRadius: 4,
+    },
+    activeTimeframe: {
         backgroundColor: '#333',
-        borderRadius: 20,
-        padding: 4,
     },
-    timeButton: {
-        paddingHorizontal: 12,
-        paddingVertical: 6,
-        borderRadius: 16,
-    },
-    activeTimeButton: {
-        backgroundColor: '#000',
-    },
-    timeButtonText: {
+    timeframeText: {
         color: 'white',
         fontSize: 12,
     },
-    chart: {
-        height: 170,
-        justifyContent: 'flex-end',
-    },
-    chartLine: {
-        height: '100%',
-        backgroundColor: 'rgba(255,255,255,0.05)',
+    chartPlaceholder: {
+        height: 180,
+        backgroundColor: 'rgba(198, 176, 108, 0.1)',
         borderRadius: 8,
     },
-    actionsCard: {
-        backgroundColor: '#777',
+    actionCard: {
+        backgroundColor: 'rgba(128, 128, 128, 0.2)',
         borderRadius: 12,
         padding: 16,
     },
     actionButtons: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        gap: 8,
+        gap: 16,
     },
     buyButton: {
         flex: 1,
-        backgroundColor: COLORS.gold,
+        borderRadius: 120,
     },
     sellButton: {
         flex: 1,
-        backgroundColor: '#333',
+        borderRadius: 120,
     },
-    sellButtonText: {
-        color: 'white',
-    },
-    shareContainer: {
-        backgroundColor: '#777',
-        borderRadius: 12,
-        padding: 16,
-    },
-    shareButton: {
-        backgroundColor: '#333',
-    },
-    shareButtonText: {
-        color: 'white',
-    },
+    shareYourGainButton: {
+        borderRadius: 120
+    }
 });
 
 export default CollectibleDetailScreen;

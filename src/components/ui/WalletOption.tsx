@@ -1,21 +1,28 @@
 import React from 'react';
 import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
+import { COLORS, BORDER_RADIUS, FONT_SIZE } from '../../styles/theme';
 
 interface WalletOptionProps {
   icon: React.ReactNode;
   title: string;
   description: string;
   onPress: () => void;
+  active?: boolean;
 }
 
 const WalletOption: React.FC<WalletOptionProps> = ({ 
   icon, 
   title, 
   description, 
-  onPress 
+  onPress,
+  active = false
 }) => {
   return (
-    <TouchableOpacity style={styles.option} onPress={onPress}>
+    <TouchableOpacity 
+      style={[styles.option, active && styles.activeOption]} 
+      onPress={onPress}
+      activeOpacity={0.7}
+    >
       <View style={styles.iconContainer}>
         {icon}
       </View>
@@ -31,10 +38,14 @@ const styles = StyleSheet.create({
   option: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#17171F',
-    borderRadius: 12,
+    backgroundColor: COLORS.darkBackground,
+    borderRadius: BORDER_RADIUS.xl,
     padding: 16,
     marginBottom: 16,
+  },
+  activeOption: {
+    borderColor: COLORS.gold,
+    borderWidth: 1,
   },
   iconContainer: {
     width: 48,
@@ -49,14 +60,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 16,
+    fontSize: FONT_SIZE.md,
     fontWeight: '600',
-    color: 'white',
+    color: COLORS.white,
     marginBottom: 4,
   },
   description: {
-    fontSize: 14,
-    color: '#999999',
+    fontSize: FONT_SIZE.sm,
+    color: COLORS.gray,
   },
 });
 

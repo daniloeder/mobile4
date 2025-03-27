@@ -1,84 +1,147 @@
+
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Switch } from 'react-native';
+import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity, Switch } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import NavHeader from '../ui/NavHeader';
 import CustomButton from '../ui/CustomButton';
-import { COLORS } from '../../styles/theme';
 import Icon from '../ui/Icon';
+import { COLORS, BORDER_RADIUS, FONT_SIZE } from '../../styles/theme';
 
 const FlexShareScreen = () => {
   const navigation = useNavigation();
   const [showWalletAddress, setShowWalletAddress] = useState(true);
-
+  const [percentage, setPercentage] = useState('351.64');
+  const [mintDate, setMintDate] = useState('June 24, 2022');
+  
   const handleBack = () => {
     navigation.goBack();
   };
 
+  const generateRandomPercentage = () => {
+    const randomPercentage = (Math.random() * 500).toFixed(2);
+    setPercentage(randomPercentage);
+  };
+  
   return (
     <View style={styles.container}>
       <NavHeader title="Flex Share" onBack={handleBack} />
       
-      <View style={styles.content}>
+      <ScrollView style={styles.scrollView} contentContainerStyle={styles.contentContainer}>
         <View style={styles.infoCard}>
-          <Icon name="sparkles" size={24} color={COLORS.gold} />
+          <Icon name="sparkles" size={20} color={COLORS.gold} />
           <Text style={styles.infoText}>
             Create a shareable image to show off your gains on this token
           </Text>
         </View>
         
-        <View style={styles.shareCardContainer}>
-          <View style={styles.shareCard}>
-            <View style={styles.collectibleTag}>
-              <Text style={styles.collectibleTagText}>Collectible</Text>
+        <View style={styles.cardContainer}>
+          {/* Preview Card */}
+          <View style={styles.previewCard}>
+            {/* Coins decoration - top left */}
+            <View style={[styles.coinDecoration, styles.topLeft]}>
+              <Image 
+                source={require('../../../assets/logo.jpg')}
+                style={styles.coinImage}
+              />
             </View>
             
-            <View style={styles.tokenContainer}>
-              <Text style={styles.tokenSymbol}>$ELON</Text>
+            {/* Coins decoration - top right */}
+            <View style={[styles.coinDecoration, styles.topRight]}>
+              <Image 
+                source={require('../../../assets/logo.jpg')}
+                style={styles.coinImage}
+              />
             </View>
             
-            <Text style={styles.tokenName}>Elon Musk</Text>
-            <Text style={styles.tokenSymbolText}>$ELON</Text>
+            {/* Header Text */}
+            <View style={styles.headerText}>
+              <Text style={styles.headerLine}>Just minted the Lebron</Text>
+              <Text style={styles.headerLine}>James Collectible on StreetX!</Text>
+              <Text style={styles.subheaderLine}>Early minters win big—buy a Street</Text>
+              <Text style={styles.subheaderLine}>Collectible today or launch your own ICO!</Text>
+            </View>
             
-            <Text style={styles.tokenGain}>+5.32% in 24h!</Text>
+            {/* Profile Image */}
+            <View style={styles.profileContainer}>
+              <Image 
+                source={require('../../../assets/profile.jpg')}
+                style={styles.profileImage}
+              />
+            </View>
             
-            <Text style={styles.mintedText}>Minted on StreetX</Text>
-            <Text style={styles.walletText}>Fx8d37...29qP</Text>
+            {/* Name */}
+            <Text style={styles.userName}>JASON</Text>
+            
+            {/* Percentage */}
+            <Text style={styles.percentageValue}>+{percentage}%</Text>
+            
+            {/* Date */}
+            <View style={styles.dateContainer}>
+              <Text style={styles.sinceText}>Since</Text>
+              <Text style={styles.dateText}>{mintDate}</Text>
+            </View>
+            
+            {/* Collect Now Button */}
+            <TouchableOpacity style={styles.collectButton}>
+              <Text style={styles.collectButtonText}>Collect Now</Text>
+            </TouchableOpacity>
+            
+            {/* Coins decoration - bottom */}
+            <View style={[styles.coinDecoration, styles.bottomLeft]}>
+              <Image 
+                source={require('../../../assets/logo.jpg')}
+                style={styles.coinImage}
+              />
+            </View>
+            <View style={[styles.coinDecoration, styles.bottomRight]}>
+              <Image 
+                source={require('../../../assets/logo.jpg')}
+                style={styles.coinImage}
+              />
+            </View>
+            
+            {showWalletAddress && (
+              <Text style={styles.walletAddress}>Fx8d37...29qP</Text>
+            )}
           </View>
         </View>
         
         <View style={styles.customizeSection}>
           <View style={styles.sectionHeader}>
-            <Icon name="palette" size={24} color={COLORS.gold} />
+            <Icon name="sliders" size={20} color={COLORS.gold} />
             <Text style={styles.sectionTitle}>Customize Your Flex</Text>
           </View>
           
-          <View style={styles.buttonsRow}>
+          <View style={styles.customizeButtonsRow}>
             <TouchableOpacity style={styles.customizeButton}>
               <Text style={styles.customizeButtonText}>Change Background</Text>
             </TouchableOpacity>
             
-            <TouchableOpacity style={styles.customizeButton}>
+            <TouchableOpacity 
+              style={styles.customizeButton}
+              onPress={generateRandomPercentage}
+            >
               <Text style={styles.customizeButtonText}>Random Gain %</Text>
             </TouchableOpacity>
           </View>
           
-          <View style={styles.toggleRow}>
+          <View style={styles.switchContainer}>
             <View>
-              <Text style={styles.toggleTitle}>Show Wallet Address</Text>
-              <Text style={styles.toggleSubtitle}>Display your wallet as watermark</Text>
+              <Text style={styles.switchTitle}>Show Wallet Address</Text>
+              <Text style={styles.switchSubtitle}>Display your wallet as watermark</Text>
             </View>
             <Switch
               value={showWalletAddress}
               onValueChange={setShowWalletAddress}
-              trackColor={{ false: '#3e3e3e', true: COLORS.gold }}
-              thumbColor="#fff"
+              trackColor={{ false: '#333', true: COLORS.gold }}
+              thumbColor="#FFF"
             />
           </View>
         </View>
         
         <View style={styles.shareSection}>
           <View style={styles.sectionHeader}>
-            <Icon name="share" size={24} color={COLORS.gold} />
+            <Icon name="share-2" size={20} color={COLORS.gold} />
             <Text style={styles.sectionTitle}>Share Your Flex</Text>
           </View>
           
@@ -89,17 +152,17 @@ const FlexShareScreen = () => {
             style={styles.saveButton}
           />
           
-          <TouchableOpacity style={styles.shareOptionButton}>
-            <Icon name="twitter" size={20} color="#fff" />
-            <Text style={styles.shareOptionText}>Post to X (Twitter)</Text>
+          <TouchableOpacity style={styles.shareButton}>
+            <Icon name="twitter" size={20} color="white" />
+            <Text style={styles.shareButtonText}>Post to X (Twitter)</Text>
           </TouchableOpacity>
           
-          <TouchableOpacity style={styles.shareOptionButton}>
-            <Icon name="copy" size={20} color="#fff" />
-            <Text style={styles.shareOptionText}>Copy Link</Text>
+          <TouchableOpacity style={styles.shareButton}>
+            <Icon name="copy" size={20} color="white" />
+            <Text style={styles.shareButtonText}>Copy Link</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -107,10 +170,12 @@ const FlexShareScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: 'black',
   },
-  content: {
+  scrollView: {
     flex: 1,
+  },
+  contentContainer: {
     padding: 16,
     gap: 16,
   },
@@ -118,88 +183,137 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'rgba(198, 176, 108, 0.1)',
-    borderRadius: 16,
+    borderRadius: BORDER_RADIUS.xl,
     padding: 16,
-    marginBottom: 8,
   },
   infoText: {
     color: 'white',
-    fontSize: 16,
     marginLeft: 12,
     flex: 1,
   },
-  shareCardContainer: {
+  cardContainer: {
+    alignItems: 'center',
+    backgroundColor: '#17171F',
+    borderRadius: BORDER_RADIUS.xl,
+    padding: 16,
+  },
+  previewCard: {
+    width: 280,
+    height: 400,
+    backgroundColor: '#1E1E24',
+    borderRadius: 12,
+    padding: 20,
+    position: 'relative',
+    overflow: 'hidden',
+    alignItems: 'center',
+  },
+  coinDecoration: {
+    position: 'absolute',
+    width: 32,
+    height: 32,
+  },
+  topLeft: {
+    top: 8,
+    left: 8,
+  },
+  topRight: {
+    top: 8,
+    right: 8,
+  },
+  bottomLeft: {
+    bottom: 8,
+    left: 8,
+  },
+  bottomRight: {
+    bottom: 8,
+    right: 8,
+  },
+  coinImage: {
+    width: 32,
+    height: 32,
+    opacity: 0.4,
+  },
+  headerText: {
     alignItems: 'center',
     marginVertical: 8,
   },
-  shareCard: {
-    width: 300,
-    height: 300,
-    backgroundColor: 'white',
-    borderRadius: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 16,
-    position: 'relative',
+  headerLine: {
+    color: COLORS.gold,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
-  collectibleTag: {
-    position: 'absolute',
-    top: 16,
-    right: 16,
-    backgroundColor: 'rgba(198, 176, 108, 0.7)',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 16,
-  },
-  collectibleTagText: {
-    color: 'white',
+  subheaderLine: {
+    color: '#888',
     fontSize: 12,
-    fontWeight: '600',
+    marginTop: 2,
   },
-  tokenContainer: {
-    backgroundColor: 'rgba(200, 200, 200, 0.5)',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 30,
-    marginBottom: 16,
+  profileContainer: {
+    marginTop: 16,
+    marginBottom: 8,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    borderWidth: 2,
+    borderColor: COLORS.gold,
+    overflow: 'hidden',
   },
-  tokenSymbol: {
-    color: COLORS.gold,
-    fontSize: 24,
-    fontWeight: '700',
+  profileImage: {
+    width: 80,
+    height: 80,
   },
-  tokenName: {
-    color: 'black',
-    fontSize: 28,
-    fontWeight: '700',
+  userName: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
-  tokenSymbolText: {
-    color: COLORS.gold,
-    fontSize: 20,
-    marginBottom: 20,
-  },
-  tokenGain: {
+  percentageValue: {
     color: '#4CAF50',
-    fontSize: 30,
-    fontWeight: '700',
-    marginBottom: 30,
+    fontSize: 36,
+    fontWeight: 'bold',
+    marginTop: 16,
   },
-  mintedText: {
-    color: 'rgba(0,0,0,0.6)',
+  dateContainer: {
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  sinceText: {
+    color: '#888',
     fontSize: 14,
   },
-  walletText: {
-    color: 'rgba(0,0,0,0.6)',
-    fontSize: 14,
+  dateText: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  collectButton: {
+    marginTop: 16,
+    backgroundColor: COLORS.gold,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 24,
+  },
+  collectButtonText: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  walletAddress: {
+    position: 'absolute',
+    bottom: 4,
+    left: 0,
+    right: 0,
+    textAlign: 'center',
+    color: '#555',
+    fontSize: 10,
   },
   customizeSection: {
-    backgroundColor: 'rgba(128, 128, 128, 0.2)',
-    borderRadius: 16,
+    backgroundColor: '#17171F',
+    borderRadius: BORDER_RADIUS.xl,
     padding: 16,
   },
   shareSection: {
-    backgroundColor: 'rgba(128, 128, 128, 0.2)',
-    borderRadius: 16,
+    backgroundColor: '#17171F',
+    borderRadius: BORDER_RADIUS.xl,
     padding: 16,
   },
   sectionHeader: {
@@ -213,7 +327,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginLeft: 8,
   },
-  buttonsRow: {
+  customizeButtonsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 16,
@@ -223,44 +337,44 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 8,
-    flex: 0.48,
+    width: '48%',
     alignItems: 'center',
   },
   customizeButtonText: {
     color: 'white',
-    fontWeight: '500',
+    fontSize: 14,
   },
-  toggleRow: {
+  switchContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#333',
     padding: 16,
-    borderRadius: 8,
+    borderRadius: 12,
   },
-  toggleTitle: {
+  switchTitle: {
     color: 'white',
     fontSize: 16,
     fontWeight: '500',
   },
-  toggleSubtitle: {
-    color: 'rgba(255,255,255,0.7)',
+  switchSubtitle: {
+    color: '#999',
     fontSize: 12,
   },
   saveButton: {
-    backgroundColor: COLORS.gold,
     marginBottom: 12,
   },
-  shareOptionButton: {
+  shareButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(255,255,255,0.1)',
-    padding: 16,
+    paddingVertical: 14,
+    paddingHorizontal: 16,
     borderRadius: 8,
     marginBottom: 12,
   },
-  shareOptionText: {
+  shareButtonText: {
     color: 'white',
     marginLeft: 8,
     fontSize: 16,

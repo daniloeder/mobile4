@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -18,6 +19,7 @@ import LaunchCollectibleScreen from '../components/screens/LaunchCollectibleScre
 import FlexShareScreen from '../components/screens/FlexShareScreen';
 import BuyTokenScreen from '../components/screens/BuyTokenScreen';
 import SuccessScreen from '../components/screens/SuccessScreen';
+import AlertsScreen from '../components/screens/AlertsScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -29,12 +31,13 @@ const TabBarIcon = ({ name, color }) => {
 const MainTabs = () => {
   return (
     <Tab.Navigator
+      id={undefined}
       screenOptions={{
         headerShown: false,
         tabBarStyle: styles.tabBar,
         tabBarActiveTintColor: COLORS.gold,
         tabBarInactiveTintColor: '#777',
-        tabBarShowLabel: false,
+        tabBarShowLabel: true,
       }}
     >
       <Tab.Screen 
@@ -52,24 +55,24 @@ const MainTabs = () => {
         }}
       />
       <Tab.Screen 
-        name="LaunchTab" 
+        name="Launch" 
         component={LaunchCollectibleScreen}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="plus-circle" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="launch" color={color} />,
         }}
       />
       <Tab.Screen 
-        name="WalletTab" 
+        name="Wallet" 
         component={WalletScreen}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="wallet" color={color} />,
         }}
       />
       <Tab.Screen 
-        name="SettingsTab" 
-        component={SettingsScreen}
+        name="Alerts" 
+        component={AlertsScreen}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="settings" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="bell" color={color} />,
         }}
       />
     </Tab.Navigator>
@@ -80,7 +83,8 @@ const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator 
-        initialRouteName="Main"
+        id={undefined}
+        initialRouteName="Splash"
         screenOptions={{ 
           headerShown: false,
           cardStyle: { backgroundColor: '#000' }
@@ -95,7 +99,6 @@ const AppNavigator = () => {
         <Stack.Screen name="LaunchCollectible" component={LaunchCollectibleScreen} />
         <Stack.Screen name="SuccessScreen" component={SuccessScreen} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
-        <Stack.Screen name="Wallet" component={WalletScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

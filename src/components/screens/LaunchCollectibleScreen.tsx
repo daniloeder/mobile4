@@ -5,7 +5,7 @@ import NavHeader from '../ui/NavHeader';
 import CustomButton from '../ui/CustomButton';
 import { COLORS } from '../../styles/theme';
 import Icon from '../ui/Icon';
-import ProgressSteps from '../ui/ProgressSteps';
+import ProgressSteps from '../ui/ProgressSteps.';
 
 const LaunchCollectibleScreen = () => {
   const [currentStep, setCurrentStep] = useState(0);

@@ -1,43 +1,48 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import NavHeader from '../ui/NavHeader';
-import Icons from '../Icons/icons';
 
-const WalletScreen = ({ navigation }) => {
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import NavHeader from '../ui/NavHeader';
+import Icon from '../ui/Icon';
+import { COLORS, FONT_SIZE } from '../../styles/theme';
+
+const WalletScreen = () => {
+  const navigation = useNavigation();
+  
+  const handleBack = () => {
+    navigation.goBack();
+  };
+  
+  const handleSelectCollectible = () => {
+    navigation.navigate('CollectibleDetail' as never);
+  };
+  
   return (
-    <SafeAreaView style={styles.container}>
-      <NavHeader 
-        title="My Wallet" 
-        onBack={() => navigation.goBack()} 
-      />
+    <View style={styles.container}>
+      <NavHeader title="My Wallet" onBack={handleBack} />
       
-      <ScrollView style={styles.scrollView}>
+      <ScrollView style={styles.scrollView} contentContainerStyle={styles.contentContainer}>
         <View style={styles.walletCard}>
           <View style={styles.walletHeader}>
             <View style={styles.walletIconContainer}>
-              <Icons.Wallet />
+              <Icon name="wallet" size={24} color={COLORS.gold} />
             </View>
-            
-            <View style={styles.walletInfo}>
-              <Text style={styles.walletTitle}>Wallet Details</Text>
-            </View>
-            
-            <TouchableOpacity style={styles.copyButton}>
-              <Icons.Copy />
+            <Text style={styles.walletTitle}>Wallet Details</Text>
+            <TouchableOpacity>
+              <Icon name="copy" size={24} color={COLORS.gold} />
             </TouchableOpacity>
           </View>
           
           <View style={styles.walletDetails}>
-            <View style={styles.detailRow}>
+            <View style={styles.walletDetail}>
               <Text style={styles.detailLabel}>Address</Text>
               <Text style={styles.detailValue}>Fx195p...if6</Text>
             </View>
             
-            <View style={styles.detailRow}>
+            <View style={styles.walletDetail}>
               <Text style={styles.detailLabel}>Balance</Text>
               <Text style={styles.balanceValue}>
-                4.0689 <Text style={styles.tokenText}>SOL</Text>
+                4.0689 <Text style={styles.solText}>SOL</Text>
               </Text>
             </View>
           </View>
@@ -46,58 +51,49 @@ const WalletScreen = ({ navigation }) => {
         <Text style={styles.sectionTitle}>My Collectibles</Text>
         
         <View style={styles.collectiblesList}>
-          {[
-            { name: 'Elon Musk', symbol: '$ELON', price: '$42.69', change: '+5.32%', trending: 'up' },
-            { name: 'Donald Trump', symbol: '$RUMP', price: '$36.41', change: '-2.15%', trending: 'down' },
-            { name: 'Erling Haaland', symbol: '$RLING', price: '$89.75', change: '+12.87%', trending: 'up' },
-            { name: 'LeBron James', symbol: '$AMES', price: '$42.69', change: '+3.43%', trending: 'up' },
-            { name: 'Vladimir Putin', symbol: '$UTIN', price: '$67.22', change: '-1.75%', trending: 'down' }
-          ].map((item, index) => (
-            <TouchableOpacity 
-              key={index} 
-              style={styles.collectibleItem}
-              onPress={() => navigation.navigate('CollectibleDetail')}
-            >
-              <View style={styles.collectibleIcon}>
-                {item.trending === 'up' ? <Icons.Volume /> : <Icons.Volume />}
+          <TouchableOpacity 
+            style={styles.collectibleItem}
+            onPress={handleSelectCollectible}
+          >
+            <View style={styles.collectibleIcon}>
+              <Icon name="trending-up" size={20} color={COLORS.gold} />
+            </View>
+            <View style={styles.collectibleInfo}>
+              <Text style={styles.collectibleName}>Elon Musk</Text>
+              <Text style={styles.collectibleSymbol}>$ELON</Text>
+            </View>
+            <View style={styles.collectiblePrice}>
+              <Text style={styles.priceValue}>$42.69</Text>
+              <View style={styles.changeContainer}>
+                <Icon name="trending-up" size={14} color="#4CAF50" />
+                <Text style={styles.changeValue}>5.32%</Text>
               </View>
-              
-              <View style={styles.collectibleInfo}>
-                <Text style={styles.collectibleName}>{item.name}</Text>
-                <Text style={styles.collectibleSymbol}>{item.symbol}</Text>
-              </View>
-              
-              <View style={styles.collectiblePrice}>
-                <Text style={styles.priceValue}>{item.price}</Text>
-                <Text style={[
-                  styles.priceChange, 
-                  item.trending === 'up' ? styles.priceUp : styles.priceDown
-                ]}>
-                  {item.trending === 'up' ? '↗' : '↘'} {item.change}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          ))}
+            </View>
+          </TouchableOpacity>
+          
+          {/* Add more collectible items here */}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000000',
+    backgroundColor: 'black',
   },
   scrollView: {
     flex: 1,
+  },
+  contentContainer: {
     padding: 16,
+    gap: 24,
   },
   walletCard: {
     backgroundColor: '#1A1A1A',
     borderRadius: 16,
     padding: 24,
-    marginBottom: 24,
   },
   walletHeader: {
     flexDirection: 'row',
@@ -113,56 +109,51 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 16,
   },
-  walletInfo: {
-    flex: 1,
-  },
   walletTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    flex: 1,
     color: 'white',
-  },
-  copyButton: {
-    padding: 8,
+    fontSize: 24,
+    fontWeight: 'bold',
   },
   walletDetails: {
     gap: 16,
   },
-  detailRow: {
-    marginBottom: 16,
+  walletDetail: {
+    marginBottom: 8,
   },
   detailLabel: {
-    fontSize: 14,
-    color: '#999999',
+    color: '#999',
     marginBottom: 4,
   },
   detailValue: {
-    fontSize: 16,
-    color: '#C6B06C',
+    color: COLORS.gold,
     fontWeight: '500',
   },
   balanceValue: {
+    color: 'white',
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'white',
   },
-  tokenText: {
-    color: '#C6B06C',
+  solText: {
+    color: COLORS.gold,
+    fontWeight: 'normal',
   },
   sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
     color: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginTop: 16,
     marginBottom: 16,
   },
   collectiblesList: {
     gap: 12,
   },
   collectibleItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: '#1A1A1A',
     borderRadius: 12,
     padding: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
   },
   collectibleIcon: {
     width: 48,
@@ -177,32 +168,29 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   collectibleName: {
-    fontSize: 16,
-    fontWeight: 'bold',
     color: 'white',
-    marginBottom: 4,
+    fontWeight: 'bold',
+    fontSize: 16,
   },
   collectibleSymbol: {
-    fontSize: 14,
-    color: '#999999',
+    color: '#999',
   },
   collectiblePrice: {
     alignItems: 'flex-end',
   },
   priceValue: {
-    fontSize: 16,
-    fontWeight: 'bold',
     color: 'white',
-    marginBottom: 4,
+    fontWeight: 'bold',
+    fontSize: 16,
   },
-  priceChange: {
-    fontSize: 14,
+  changeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
-  priceUp: {
+  changeValue: {
     color: '#4CAF50',
-  },
-  priceDown: {
-    color: '#F44336',
+    marginLeft: 4,
   },
 });
 
