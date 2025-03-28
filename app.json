@@ -2,6 +2,7 @@
   "expo": {
     "name": "mobile4",
     "slug": "mobile4",
+    "scheme": "mobile4",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
